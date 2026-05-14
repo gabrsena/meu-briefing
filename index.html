@@ -430,131 +430,17 @@
             </div>
         </div>
 
-        <div class="footer" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-            <button type="button" class="print-btn" onclick="sendViaWhatsApp()" style="background: #25D366; box-shadow: 0 10px 15px -3px rgba(37, 211, 102, 0.4);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                Enviar Respostas pelo WhatsApp
-            </button>
-            <button type="button" class="print-btn" onclick="generatePDF()" style="background: var(--card-bg); border: 1px solid var(--border); box-shadow: none;">
+        <div class="footer">
+            <button type="button" class="print-btn" onclick="window.print()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                Gerar PDF (Apenas Computador)
+                Gerar PDF para Enviar
             </button>
-            <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;" id="statusText">
-                Dica: Se o arquivo foi aberto dentro do WhatsApp, use o botão verde.
+            <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.9rem;">
+                Dica: Ao clicar, escolha "Salvar como PDF" no destino da impressão. O layout já está configurado.
             </p>
         </div>
     </form>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script>
-    function generatePDF() {
-        try {
-            const element = document.querySelector('.container');
-            
-            const btn = document.querySelectorAll('.print-btn')[1];
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Gerando PDF... Aguarde';
-            btn.disabled = true;
-
-            if (typeof html2pdf !== 'undefined') {
-                const opt = {
-                    margin:       10,
-                    filename:     'briefing-preenchido.pdf',
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, logging: false },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-                
-                document.body.style.background = 'white';
-                document.body.style.color = 'black';
-                
-                html2pdf().set(opt).from(element).save().then(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    document.body.style.background = '';
-                    document.body.style.color = '';
-                    document.getElementById('statusText').innerText = 'PDF gerado com sucesso! Verifique seus downloads.';
-                }).catch(err => {
-                    console.error(err);
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    document.body.style.background = '';
-                    document.body.style.color = '';
-                    // Se falhar o html2pdf, tenta o print nativo
-                    window.print();
-                });
-            } else {
-                // Fallback imediato se não tiver biblioteca
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                window.print();
-            }
-        } catch (e) {
-            alert("Ocorreu um erro: " + e.message);
-            window.print(); // Fallback final
-        }
-    }
-
-    function sendViaWhatsApp() {
-        try {
-            let text = "*RESPOSTAS DO BRIEFING - LANDING PAGE*\n\n";
-            
-            const sections = document.querySelectorAll('.section');
-            sections.forEach((sec) => {
-                const titleEl = sec.querySelector('h2');
-                if (!titleEl) return;
-                
-                const title = titleEl.innerText;
-                text += `*${title.replace(/0[1-8]\s/g, '')}*\n`;
-                
-                const fields = sec.querySelectorAll('.form-group, .checkbox-item');
-                let hasContent = false;
-                
-                fields.forEach(field => {
-                    if(field.classList.contains('form-group')) {
-                        const labelEl = field.querySelector('label');
-                        const inputEl = field.querySelector('input, textarea');
-                        if (labelEl && inputEl) {
-                            const label = labelEl.innerText;
-                            const input = inputEl.value;
-                            if(input.trim() !== '') {
-                                text += `_${label}_\n${input}\n\n`;
-                                hasContent = true;
-                            }
-                        }
-                    } else if(field.classList.contains('checkbox-item')) {
-                        const cb = field.querySelector('input[type="checkbox"]');
-                        const span = field.querySelector('span');
-                        if(cb && span && cb.checked) {
-                            text += `✅ ${span.innerText}\n`;
-                            hasContent = true;
-                        }
-                    }
-                });
-                
-                if(hasContent) text += "\n";
-            });
-
-            const encodedText = encodeURIComponent(text);
-            
-            document.getElementById('statusText').innerText = 'Abrindo WhatsApp...';
-            
-            // Força a mudança de página na mesma aba para evitar bloqueadores de pop-up (muito comum no Brave/Chrome)
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            if (isMobile) {
-                window.location.href = `whatsapp://send?text=${encodedText}`;
-                setTimeout(() => {
-                    window.location.href = `https://wa.me/?text=${encodedText}`;
-                }, 1000);
-            } else {
-                window.location.href = `https://web.whatsapp.com/send?text=${encodedText}`;
-            }
-        } catch (e) {
-            alert("Ocorreu um erro ao gerar o link: " + e.message);
-        }
-    }
-</script>
 
 </body>
 </html>
