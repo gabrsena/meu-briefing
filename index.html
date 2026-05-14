@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing Landing Page — Digital Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .section {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 span {
+            font-size: 0.9rem;
+            background: rgba(139, 92, 246, 0.1);
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        input[type="text"], 
+        textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus, 
+        textarea:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked {
+            background: var(--primary);
+        }
+
+        .checkbox-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .checkbox-item span {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + span {
+            color: var(--text);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .print-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            background: var(--primary-dark);
+            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.5);
+        }
+
+        .print-btn:active {
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media print {
+            @page {
+                margin: 0; /* Zera a margem da página para forçar o sumiço do rodapé */
+            }
+            body {
+                background: white;
+                color: black;
+                margin: 1.5cm; /* Adiciona a margem no corpo para o conteúdo não colar na borda */
+                padding: 0;
+            }
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                background: white;
+                backdrop-filter: none;
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                padding: 25px;
+            }
+            .header h1 {
+                -webkit-text-fill-color: black;
+                background: none;
+            }
+            .print-btn, .header p {
+                display: none;
+            }
+            input, textarea {
+                border: 1px solid #ccc !important;
+                background: transparent !important;
+                color: black !important;
+            }
+            .checkbox-item {
+                border: 1px solid #eee;
+                background: transparent !important;
+            }
+            h2 {
+                color: black;
+            }
+            h2 span {
+                border: 1px solid #ccc;
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Briefing Landing Page</h1>
+        <p>Preencha os detalhes para iniciarmos o projeto. Salve como PDF ao finalizar.</p>
+    </div>
+
+    <form id="briefingForm">
+        <!-- 1. Negócio -->
+        <div class="section" style="animation-delay: 0.1s">
+            <h2><span>01</span> Negócio</h2>
+            <div class="form-group">
+                <label>Nome do negócio / marca</label>
+                <input type="text" placeholder="Ex: Upper Digital Agency">
+            </div>
+            <div class="form-group">
+                <label>Segmento / nicho</label>
+                <input type="text" placeholder="Ex: Estética Automotiva">
+            </div>
+            <div class="form-group">
+                <label>O que você vende? (Seja específico)</label>
+                <textarea placeholder="Ex: Lavagem técnica, vitrificação e PPF..."></textarea>
+            </div>
+        </div>
+
+        <!-- 2. Objetivo -->
+        <div class="section" style="animation-delay: 0.2s">
+            <h2><span>02</span> Objetivo da Página</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Qual o foco principal?</p>
+            <div class="checkbox-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Capturar leads</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Venda direta (Checkout)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Agendamento de reunião</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Direcionar para WhatsApp</span>
+                </label>
+            </div>
+            <div class="form-group" style="margin-top: 25px;">
+                <label>Qual a ação principal do visitante?</label>
+                <input type="text" placeholder="Ex: Clicar no botão de agendamento">
+            </div>
+        </div>
+
+        <!-- 3. Público-alvo -->
+        <div class="section" style="animation-delay: 0.3s">
+            <h2><span>03</span> Público-Alvo</h2>
+            <div class="form-group">
+                <label>Quem é o cliente ideal? (Idade, dor, profissão)</label>
+                <textarea placeholder="Ex: Homens de 30-50 anos, donos de carros de luxo..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Qual problema você resolve para ele?</label>
+                <textarea></textarea>
+            </div>
+            <div class="form-group">
+                <label>O que ele já tentou antes que não funcionou?</label>
+                <input type="text">
+            </div>
+        </div>
+
+        <!-- 4. Oferta -->
+        <div class="section" style="animation-delay: 0.4s">
+            <h2><span>04</span> Oferta</h2>
+            <div class="form-group">
+                <label>O que exatamente está sendo ofertado?</label>
+                <textarea></textarea>
+            </div>
+            <div class="form-group">
+                <label>Garantia, bônus ou condições especiais?</label>
+                <textarea></textarea>
+            </div>
+        </div>
+
+        <!-- 5. Prova Social -->
+        <div class="section" style="animation-delay: 0.5s">
+            <h2><span>05</span> Prova Social</h2>
+            <div class="checkbox-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Tenho depoimentos (vou enviar)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Não tenho depoimentos ainda</span>
+                </label>
+            </div>
+            <div class="form-group" style="margin-top: 25px;">
+                <label>Resultados ou números expressivos (cases)</label>
+                <input type="text" placeholder="Ex: +500 carros atendidos">
+            </div>
+        </div>
+
+        <!-- 6. Identidade Visual -->
+        <div class="section" style="animation-delay: 0.6s">
+            <h2><span>06</span> Identidade Visual</h2>
+            <div class="checkbox-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Tenho Logo (vou enviar PNG)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Não tenho Logo</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Tenho Manual da Marca</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox">
+                    <span>Pode seguir minha referência</span>
+                </label>
+            </div>
+            <div class="form-group" style="margin-top: 25px;">
+                <label>Referências visuais (links de sites que gosta)</label>
+                <textarea placeholder="Link 1, Link 2..."></textarea>
+            </div>
+        </div>
+
+        <!-- 8. Seções Desejadas -->
+        <div class="section" style="animation-delay: 0.7s">
+            <h2><span>07</span> Seções da Página</h2>
+            <div class="checkbox-grid">
+                <label class="checkbox-item"><input type="checkbox" checked> <span>Hero (Título + CTA)</span></label>
+                <label class="checkbox-item"><input type="checkbox"> <span>Sobre nós</span></label>
+                <label class="checkbox-item"><input type="checkbox"> <span>Serviços/Produtos</span></label>
+                <label class="checkbox-item"><input type="checkbox"> <span>Como funciona</span></label>
+                <label class="checkbox-item"><input type="checkbox"> <span>Resultados</span></label>
+                <label class="checkbox-item"><input type="checkbox"> <span>Depoimentos</span></label>
+                <label class="checkbox-item"><input type="checkbox"> <span>FAQ</span></label>
+                <label class="checkbox-item"><input type="checkbox"> <span>Formulário</span></label>
+                <label class="checkbox-item"><input type="checkbox"> <span>Botão WhatsApp</span></label>
+            </div>
+        </div>
+
+        <!-- 9. Integrações -->
+        <div class="section" style="animation-delay: 0.8s">
+            <h2><span>08</span> Contato & Detalhes</h2>
+            <div class="form-group">
+                <label>Número do WhatsApp para a página</label>
+                <input type="text" placeholder="(00) 00000-0000">
+            </div>
+            <div class="form-group">
+                <label>Observações adicionais</label>
+                <textarea placeholder="Algum detalhe importante?"></textarea>
+            </div>
+        </div>
+
+        <div class="footer" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <button type="button" class="print-btn" onclick="sendViaWhatsApp()" style="background: #25D366; box-shadow: 0 10px 15px -3px rgba(37, 211, 102, 0.4);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                Enviar Respostas pelo WhatsApp
+            </button>
+            <button type="button" class="print-btn" onclick="generatePDF()" style="background: var(--card-bg); border: 1px solid var(--border); box-shadow: none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                Gerar PDF (Apenas Computador)
+            </button>
+            <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;" id="statusText">
+                Dica: Se o arquivo foi aberto dentro do WhatsApp, use o botão verde.
+            </p>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    function generatePDF() {
+        try {
+            const element = document.querySelector('.container');
+            
+            const btn = document.querySelectorAll('.print-btn')[1];
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Gerando PDF... Aguarde';
+            btn.disabled = true;
+
+            if (typeof html2pdf !== 'undefined') {
+                const opt = {
+                    margin:       10,
+                    filename:     'briefing-preenchido.pdf',
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, logging: false },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+                
+                document.body.style.background = 'white';
+                document.body.style.color = 'black';
+                
+                html2pdf().set(opt).from(element).save().then(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    document.body.style.background = '';
+                    document.body.style.color = '';
+                    document.getElementById('statusText').innerText = 'PDF gerado com sucesso! Verifique seus downloads.';
+                }).catch(err => {
+                    console.error(err);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    document.body.style.background = '';
+                    document.body.style.color = '';
+                    // Se falhar o html2pdf, tenta o print nativo
+                    window.print();
+                });
+            } else {
+                // Fallback imediato se não tiver biblioteca
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                window.print();
+            }
+        } catch (e) {
+            alert("Ocorreu um erro: " + e.message);
+            window.print(); // Fallback final
+        }
+    }
+
+    function sendViaWhatsApp() {
+        try {
+            let text = "*RESPOSTAS DO BRIEFING - LANDING PAGE*\n\n";
+            
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((sec) => {
+                const titleEl = sec.querySelector('h2');
+                if (!titleEl) return;
+                
+                const title = titleEl.innerText;
+                text += `*${title.replace(/0[1-8]\s/g, '')}*\n`;
+                
+                const fields = sec.querySelectorAll('.form-group, .checkbox-item');
+                let hasContent = false;
+                
+                fields.forEach(field => {
+                    if(field.classList.contains('form-group')) {
+                        const labelEl = field.querySelector('label');
+                        const inputEl = field.querySelector('input, textarea');
+                        if (labelEl && inputEl) {
+                            const label = labelEl.innerText;
+                            const input = inputEl.value;
+                            if(input.trim() !== '') {
+                                text += `_${label}_\n${input}\n\n`;
+                                hasContent = true;
+                            }
+                        }
+                    } else if(field.classList.contains('checkbox-item')) {
+                        const cb = field.querySelector('input[type="checkbox"]');
+                        const span = field.querySelector('span');
+                        if(cb && span && cb.checked) {
+                            text += `✅ ${span.innerText}\n`;
+                            hasContent = true;
+                        }
+                    }
+                });
+                
+                if(hasContent) text += "\n";
+            });
+
+            const encodedText = encodeURIComponent(text);
+            
+            document.getElementById('statusText').innerText = 'Abrindo WhatsApp...';
+            
+            // Força a mudança de página na mesma aba para evitar bloqueadores de pop-up (muito comum no Brave/Chrome)
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                window.location.href = `whatsapp://send?text=${encodedText}`;
+                setTimeout(() => {
+                    window.location.href = `https://wa.me/?text=${encodedText}`;
+                }, 1000);
+            } else {
+                window.location.href = `https://web.whatsapp.com/send?text=${encodedText}`;
+            }
+        } catch (e) {
+            alert("Ocorreu um erro ao gerar o link: " + e.message);
+        }
+    }
+</script>
+
+</body>
+</html>
