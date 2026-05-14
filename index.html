@@ -279,21 +279,26 @@
         <p>Preencha os detalhes para iniciarmos o projeto. Salve como PDF ao finalizar.</p>
     </div>
 
-    <form id="briefingForm">
+    <form action="https://formsubmit.co/gabrsena@hotmail.com" method="POST">
+        <!-- Configurações do FormSubmit -->
+        <input type="hidden" name="_subject" value="Novo Briefing Recebido!">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+
         <!-- 1. Negócio -->
         <div class="section" style="animation-delay: 0.1s">
             <h2><span>01</span> Negócio</h2>
             <div class="form-group">
                 <label>Nome do negócio / marca</label>
-                <input type="text" placeholder="Ex: Upper Digital Agency">
+                <input type="text" name="nome_negocio" placeholder="Ex: Upper Digital Agency" required>
             </div>
             <div class="form-group">
                 <label>Segmento / nicho</label>
-                <input type="text" placeholder="Ex: Estética Automotiva">
+                <input type="text" name="segmento" placeholder="Ex: Estética Automotiva">
             </div>
             <div class="form-group">
                 <label>O que você vende? (Seja específico)</label>
-                <textarea placeholder="Ex: Lavagem técnica, vitrificação e PPF..."></textarea>
+                <textarea name="o_que_vende" placeholder="Ex: Lavagem técnica, vitrificação e PPF..."></textarea>
             </div>
         </div>
 
@@ -303,25 +308,25 @@
             <p style="margin-bottom: 20px; color: var(--text-muted);">Qual o foco principal?</p>
             <div class="checkbox-grid">
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="objetivo[]" value="Capturar leads">
                     <span>Capturar leads</span>
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="objetivo[]" value="Venda direta">
                     <span>Venda direta (Checkout)</span>
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="objetivo[]" value="Agendamento">
                     <span>Agendamento de reunião</span>
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="objetivo[]" value="WhatsApp">
                     <span>Direcionar para WhatsApp</span>
                 </label>
             </div>
             <div class="form-group" style="margin-top: 25px;">
                 <label>Qual a ação principal do visitante?</label>
-                <input type="text" placeholder="Ex: Clicar no botão de agendamento">
+                <input type="text" name="acao_principal" placeholder="Ex: Clicar no botão de agendamento">
             </div>
         </div>
 
@@ -330,15 +335,15 @@
             <h2><span>03</span> Público-Alvo</h2>
             <div class="form-group">
                 <label>Quem é o cliente ideal? (Idade, dor, profissão)</label>
-                <textarea placeholder="Ex: Homens de 30-50 anos, donos de carros de luxo..."></textarea>
+                <textarea name="publico_alvo" placeholder="Ex: Homens de 30-50 anos, donos de carros de luxo..."></textarea>
             </div>
             <div class="form-group">
                 <label>Qual problema você resolve para ele?</label>
-                <textarea></textarea>
+                <textarea name="problema_resolvido"></textarea>
             </div>
             <div class="form-group">
                 <label>O que ele já tentou antes que não funcionou?</label>
-                <input type="text">
+                <input type="text" name="tentativas_anteriores">
             </div>
         </div>
 
@@ -347,11 +352,11 @@
             <h2><span>04</span> Oferta</h2>
             <div class="form-group">
                 <label>O que exatamente está sendo ofertado?</label>
-                <textarea></textarea>
+                <textarea name="detalhes_oferta"></textarea>
             </div>
             <div class="form-group">
                 <label>Garantia, bônus ou condições especiais?</label>
-                <textarea></textarea>
+                <textarea name="garantia_bonus"></textarea>
             </div>
         </div>
 
@@ -360,17 +365,17 @@
             <h2><span>05</span> Prova Social</h2>
             <div class="checkbox-grid">
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="prova_social[]" value="Tem depoimentos">
                     <span>Tenho depoimentos (vou enviar)</span>
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="prova_social[]" value="Nao tem depoimentos">
                     <span>Não tenho depoimentos ainda</span>
                 </label>
             </div>
             <div class="form-group" style="margin-top: 25px;">
                 <label>Resultados ou números expressivos (cases)</label>
-                <input type="text" placeholder="Ex: +500 carros atendidos">
+                <input type="text" name="cases_resultados" placeholder="Ex: +500 carros atendidos">
             </div>
         </div>
 
@@ -379,64 +384,64 @@
             <h2><span>06</span> Identidade Visual</h2>
             <div class="checkbox-grid">
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="id_visual[]" value="Tem Logo">
                     <span>Tenho Logo (vou enviar PNG)</span>
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="id_visual[]" value="Nao tem Logo">
                     <span>Não tenho Logo</span>
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="id_visual[]" value="Tem Manual">
                     <span>Tenho Manual da Marca</span>
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox">
+                    <input type="checkbox" name="id_visual[]" value="Referencia">
                     <span>Pode seguir minha referência</span>
                 </label>
             </div>
             <div class="form-group" style="margin-top: 25px;">
                 <label>Referências visuais (links de sites que gosta)</label>
-                <textarea placeholder="Link 1, Link 2..."></textarea>
+                <textarea name="referencias_visuais" placeholder="Link 1, Link 2..."></textarea>
             </div>
         </div>
 
-        <!-- 8. Seções Desejadas -->
+        <!-- 7. Seções Desejadas -->
         <div class="section" style="animation-delay: 0.7s">
             <h2><span>07</span> Seções da Página</h2>
             <div class="checkbox-grid">
-                <label class="checkbox-item"><input type="checkbox" checked> <span>Hero (Título + CTA)</span></label>
-                <label class="checkbox-item"><input type="checkbox"> <span>Sobre nós</span></label>
-                <label class="checkbox-item"><input type="checkbox"> <span>Serviços/Produtos</span></label>
-                <label class="checkbox-item"><input type="checkbox"> <span>Como funciona</span></label>
-                <label class="checkbox-item"><input type="checkbox"> <span>Resultados</span></label>
-                <label class="checkbox-item"><input type="checkbox"> <span>Depoimentos</span></label>
-                <label class="checkbox-item"><input type="checkbox"> <span>FAQ</span></label>
-                <label class="checkbox-item"><input type="checkbox"> <span>Formulário</span></label>
-                <label class="checkbox-item"><input type="checkbox"> <span>Botão WhatsApp</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="Hero" checked> <span>Hero (Título + CTA)</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="Sobre"> <span>Sobre nós</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="Servicos"> <span>Serviços/Produtos</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="Como Funciona"> <span>Como funciona</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="Resultados"> <span>Resultados</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="Depoimentos"> <span>Depoimentos</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="FAQ"> <span>FAQ</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="Formulario"> <span>Formulário</span></label>
+                <label class="checkbox-item"><input type="checkbox" name="secoes[]" value="Whats"> <span>Botão WhatsApp</span></label>
             </div>
         </div>
 
-        <!-- 9. Integrações -->
+        <!-- 8. Contato -->
         <div class="section" style="animation-delay: 0.8s">
             <h2><span>08</span> Contato & Detalhes</h2>
             <div class="form-group">
                 <label>Número do WhatsApp para a página</label>
-                <input type="text" placeholder="(00) 00000-0000">
+                <input type="text" name="whatsapp_página" placeholder="(00) 00000-0000">
             </div>
             <div class="form-group">
                 <label>Observações adicionais</label>
-                <textarea placeholder="Algum detalhe importante?"></textarea>
+                <textarea name="observacoes" placeholder="Algum detalhe importante?"></textarea>
             </div>
         </div>
 
         <div class="footer">
-            <button type="button" class="print-btn" onclick="window.print()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                Gerar PDF para Enviar
+            <button type="submit" class="print-btn" style="width: 100%; justify-content: center; background: #fff; color: #000;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                ENVIAR BRIEFING AGORA
             </button>
             <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.9rem;">
-                Dica: Ao clicar, escolha "Salvar como PDF" no destino da impressão. O layout já está configurado.
+                Ao clicar em enviar, os dados serão processados e entregues diretamente no e-mail da agência.
             </p>
         </div>
     </form>
