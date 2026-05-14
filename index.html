@@ -279,11 +279,14 @@
         <p>Preencha os detalhes para iniciarmos o projeto. Salve como PDF ao finalizar.</p>
     </div>
 
-    <form action="https://formsubmit.co/gabrsena@hotmail.com" method="POST">
-        <!-- Configurações do FormSubmit -->
-        <input type="hidden" name="_subject" value="Novo Briefing Recebido!">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
+    <form action="https://api.web3forms.com/submit" method="POST">
+        <!-- Configurações do Web3Forms -->
+        <input type="hidden" name="access_key" value="f2d5ddbf-3d23-4e77-8c92-0d93d3fb2b3f">
+        <input type="hidden" name="subject" value="Novo Briefing Recebido!">
+        <input type="hidden" name="from_name" value="Landing Page Briefing">
+        
+        <!-- Redireciona de volta para o site após o envio -->
+        <input type="hidden" name="redirect" value="https://gabrsena.github.io/meu-briefing/">
 
         <!-- 1. Negócio -->
         <div class="section" style="animation-delay: 0.1s">
